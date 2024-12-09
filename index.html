@@ -63,6 +63,21 @@
         position: relative;
       }
 
+      .floating-photo {
+        position: absolute;
+        max-width: 200px;
+        max-height: 200px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        object-fit: cover;
+        transition: all 0.3s ease;
+      }
+
+      .floating-photo:hover {
+        transform: scale(1.1);
+        z-index: 20;
+      }
+
       .easter-eggs {
         position: absolute;
         font-family: Arial, sans-serif;
@@ -127,6 +142,18 @@
           transform: translateX(50px) translateY(50px);
         }
       }
+
+      @keyframes fastFloat {
+        0% {
+          transform: translateY(0) translateX(0);
+        }
+        50% {
+          transform: translateY(-30px) translateX(20px);
+        }
+        100% {
+          transform: translateY(0) translateX(-20px);
+        }
+      }
     </style>
   </head>
   <body>
@@ -153,19 +180,18 @@
           egg.style.top = `${Math.random() * 120}%`
           egg.style.fontSize = `${Math.random() * 30 + 15}px`
 
-          // More varied animations
           const animationType = Math.random()
           if (animationType < 0.33) {
             egg.style.animation = `subtleRotate ${
-              Math.random() * 10 + 5
+              Math.random() * 5 + 2
             }s linear infinite`
           } else if (animationType < 0.66) {
             egg.style.animation = `drift ${
-              Math.random() * 10 + 5
+              Math.random() * 5 + 2
             }s alternate infinite`
           } else {
             egg.style.animation = `float ${
-              Math.random() * 5 + 3
+              Math.random() * 2 + 1
             }s alternate infinite`
           }
 
@@ -173,7 +199,47 @@
         }
       }
 
+      function createFloatingPhotos() {
+        const photoUrls = [
+          "https://cdn.discordapp.com/attachments/1287846556145422337/1315754144769900556/1.jpg?ex=67588f09&is=67573d89&hm=fae829ea2c7c3ea4ffda07aed18c7c8bfe5d088fcb25e6dd28f6c84554e9e3cd&",
+          "https://cdn.discordapp.com/attachments/1287846556145422337/1315754145562492958/2.jpg?ex=67588f09&is=67573d89&hm=84b5f509c258ea86fce913f7e6d65f606ddb629883f8dc9c62ffcca74e8356e3&",
+          "https://cdn.discordapp.com/attachments/1287846556145422337/1315754145977860166/3.jpg?ex=67588f09&is=67573d89&hm=62b0593780ac1235cb4304cc3edaeea1ff585deade87be113b5c8732bc2cb34d&",
+          "https://cdn.discordapp.com/attachments/1287846556145422337/1315754146284048434/4.jpg?ex=67588f0a&is=67573d8a&hm=b0d5e2e18f5fe7d7963be19abf3ae47fe35c66ab5a2911d7be7b701b4773a8d4&",
+          "https://cdn.discordapp.com/attachments/1287846556145422337/1315754146695217152/5.jpg?ex=67588f0a&is=67573d8a&hm=50275111a12e061fccf95fe3dea85192ea273f8121badcbefcd51ad6bafcddcc&",
+          "https://cdn.discordapp.com/attachments/1287846556145422337/1315754147135361044/6.jpg?ex=67588f0a&is=67573d8a&hm=c85f347a328d10165f9c47c95e6d2276b0075aad3d4e4dab9be4c39856c5d8d8&",
+        ]
+
+        photoUrls.forEach((url) => {
+          const photo = document.createElement("img")
+          photo.src = url
+          photo.className = "floating-photo"
+
+          // Random position
+          photo.style.left = `${Math.random() * 120}%`
+          photo.style.top = `${Math.random() * 120}%`
+
+          // Random animation with faster speeds
+          const animationType = Math.random()
+          if (animationType < 0.33) {
+            photo.style.animation = `subtleRotate ${
+              Math.random() * 3 + 1
+            }s linear infinite`
+          } else if (animationType < 0.66) {
+            photo.style.animation = `drift ${
+              Math.random() * 3 + 1
+            }s alternate infinite`
+          } else {
+            photo.style.animation = `fastFloat ${
+              Math.random() * 2 + 1
+            }s alternate infinite`
+          }
+
+          document.body.appendChild(photo)
+        })
+      }
+
       createEasterEggs()
+      createFloatingPhotos()
     </script>
   </body>
 </html>
