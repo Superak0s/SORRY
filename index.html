@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="el">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Συγνωμη</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap");
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #34495e, #2c3e50);
+        font-family: "Caveat", cursive;
+        overflow: hidden;
+        perspective: 1000px;
+      }
+
+      .heart {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background-color: #ff4757;
+        transform: rotate(45deg);
+        animation: pulse 2s infinite;
+        z-index: -1;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        opacity: 0.7;
+      }
+
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background-color: #ff4757;
+        border-radius: 50%;
+      }
+
+      .heart::before {
+        left: -150px;
+      }
+
+      .heart::after {
+        top: -150px;
+      }
+
+      .message {
+        text-align: center;
+        font-size: 4rem;
+        color: #2f3542;
+        background: linear-gradient(45deg, #ff6b6b, #5f27cd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: fadeIn 3s forwards, float 3s infinite alternate;
+        opacity: 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        letter-spacing: 2px;
+        z-index: 10;
+        position: relative;
+      }
+
+      .easter-eggs {
+        position: absolute;
+        font-family: Arial, sans-serif;
+        color: rgba(255, 255, 255, 0.5);
+        user-select: none;
+        pointer-events: none;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        opacity: 0.8;
+        transition: all 0.3s ease;
+      }
+
+      .easter-eggs:hover {
+        transform: scale(1.2);
+        color: rgba(255, 255, 255, 1);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.5) rotateY(-180deg);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) rotateY(0);
+        }
+      }
+
+      @keyframes float {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: rotate(45deg) scale(1);
+        }
+        50% {
+          transform: rotate(45deg) scale(1.1);
+        }
+      }
+
+      @keyframes subtleRotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes drift {
+        0% {
+          transform: translateX(0) translateY(0);
+        }
+        100% {
+          transform: translateX(50px) translateY(50px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heart"></div>
+    <div class="message">Συγνωμη γλυκουλα</div>
+
+    <script>
+      function createEasterEggs() {
+        const phrases = [
+          "I love you ❤️",
+          "σ' αγαπώ 💕",
+          "Je t'aime 💘",
+          "Te amo 💗",
+          "Ich liebe dich 💖",
+          "愛してる 💓",
+          "❤️💕💘💗💖💓",
+        ]
+
+        for (let i = 0; i < 100; i++) {
+          const egg = document.createElement("div")
+          egg.className = "easter-eggs"
+          egg.textContent = phrases[Math.floor(Math.random() * phrases.length)]
+          egg.style.left = `${Math.random() * 120}%`
+          egg.style.top = `${Math.random() * 120}%`
+          egg.style.fontSize = `${Math.random() * 30 + 15}px`
+
+          // More varied animations
+          const animationType = Math.random()
+          if (animationType < 0.33) {
+            egg.style.animation = `subtleRotate ${
+              Math.random() * 10 + 5
+            }s linear infinite`
+          } else if (animationType < 0.66) {
+            egg.style.animation = `drift ${
+              Math.random() * 10 + 5
+            }s alternate infinite`
+          } else {
+            egg.style.animation = `float ${
+              Math.random() * 5 + 3
+            }s alternate infinite`
+          }
+
+          document.body.appendChild(egg)
+        }
+      }
+
+      createEasterEggs()
+    </script>
+  </body>
+</html>
