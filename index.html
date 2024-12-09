@@ -2,55 +2,73 @@
 <html lang="el">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>Συγνωμη</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap");
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: linear-gradient(135deg, #34495e, #2c3e50);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
 
       body {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        margin: 0;
-        background: linear-gradient(135deg, #34495e, #2c3e50);
         font-family: "Caveat", cursive;
-        overflow: hidden;
         perspective: 1000px;
+        position: relative;
       }
 
       .heart {
         position: absolute;
-        width: 300px;
-        height: 300px;
+        width: 200px;
+        height: 200px;
         background-color: #ff4757;
         transform: rotate(45deg);
         animation: pulse 2s infinite;
         z-index: -1;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         opacity: 0.7;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
       }
 
       .heart::before,
       .heart::after {
         content: "";
         position: absolute;
-        width: 300px;
-        height: 300px;
+        width: 200px;
+        height: 200px;
         background-color: #ff4757;
         border-radius: 50%;
       }
 
       .heart::before {
-        left: -150px;
+        left: -100px;
       }
 
       .heart::after {
-        top: -150px;
+        top: -100px;
       }
 
       .message {
         text-align: center;
-        font-size: 4rem;
+        font-size: 3rem;
         color: #2f3542;
         background: linear-gradient(45deg, #ff6b6b, #5f27cd);
         -webkit-background-clip: text;
@@ -61,12 +79,15 @@
         letter-spacing: 2px;
         z-index: 10;
         position: relative;
+        max-width: 90%;
+        margin: 0 auto;
+        word-wrap: break-word;
       }
 
       .floating-photo {
-        position: absolute;
-        max-width: 200px;
-        max-height: 200px;
+        position: fixed;
+        max-width: 150px;
+        max-height: 150px;
         border-radius: 15px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         object-fit: cover;
@@ -79,7 +100,7 @@
       }
 
       .easter-eggs {
-        position: absolute;
+        position: fixed;
         font-family: Arial, sans-serif;
         color: rgba(255, 255, 255, 0.5);
         user-select: none;
@@ -87,12 +108,50 @@
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         opacity: 0.8;
         transition: all 0.3s ease;
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow: hidden;
       }
 
       .easter-eggs:hover {
         transform: scale(1.2);
         color: rgba(255, 255, 255, 1);
         text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+      }
+
+      @media (max-width: 600px) {
+        .message {
+          font-size: 2rem;
+          letter-spacing: 1px;
+        }
+
+        .heart {
+          width: 150px;
+          height: 150px;
+        }
+
+        .heart::before,
+        .heart::after {
+          width: 150px;
+          height: 150px;
+        }
+
+        .heart::before {
+          left: -75px;
+        }
+
+        .heart::after {
+          top: -75px;
+        }
+
+        .floating-photo {
+          max-width: 100px;
+          max-height: 100px;
+        }
+
+        .easter-eggs {
+          font-size: 0.8rem !important;
+        }
       }
 
       @keyframes fadeIn {
@@ -118,10 +177,10 @@
       @keyframes pulse {
         0%,
         100% {
-          transform: rotate(45deg) scale(1);
+          transform: translate(-50%, -50%) rotate(45deg) scale(1);
         }
         50% {
-          transform: rotate(45deg) scale(1.1);
+          transform: translate(-50%, -50%) rotate(45deg) scale(1.1);
         }
       }
 
@@ -172,13 +231,13 @@
           "❤️💕💘💗💖💓",
         ]
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 50; i++) {
           const egg = document.createElement("div")
           egg.className = "easter-eggs"
           egg.textContent = phrases[Math.floor(Math.random() * phrases.length)]
           egg.style.left = `${Math.random() * 120}%`
           egg.style.top = `${Math.random() * 120}%`
-          egg.style.fontSize = `${Math.random() * 30 + 15}px`
+          egg.style.fontSize = `${Math.random() * 20 + 10}px`
 
           const animationType = Math.random()
           if (animationType < 0.33) {
